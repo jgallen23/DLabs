@@ -1,0 +1,47 @@
+/* =Reset 
+--------------------------------------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, font, img, ins, kbd, q, s, samp,
+ small, strike, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+html { background-color:#fff; }
+body { font-family: Arial, Helvetica; font-size: small; background: #fff; color: #000; }
+* html body { font-size: x-small; f\ont-size: small; }
+:-moz-any-link:focus, 
+input:focus, 
+textarea:focus,
+a,
+a:active,
+a:focus { outline: none; }
+a { cursor:pointer; }
+a img { border:none; }
+h1, h2, h3, h4, h5, h6 { font-weight:normal; }
+table { border-collapse:collapse; }
+th { text-align: left; font-weight: normal; }
+td { vertical-align: top; }
+ol { margin-left: 25px; }
+ul { list-style: none; }
+
+/* Float Container */
+.FLC { clear:both; }
+.FLC:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+
+    /* IE6 work-around \*/
+    * html .FLC { height:1%; }
+    
+    /* IE7 work-around */
+    html > body .FLC { height:auto; max-height:12000000px; }
+

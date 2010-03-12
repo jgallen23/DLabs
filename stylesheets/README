@@ -1,0 +1,11 @@
+Folder Structure:
+	/ui/stylesheets/pages/ - page specific stylesheets
+	/ui/stylesheets/common.css
+	/ui/stylesheets/layout.css
+	/ui/stylesheets/typography.css
+	/ui/stylesheets/modules.css
+	/ui/stylesheets/symbols.css - includes buttons, icons, symbols
+
+Naming Convention
+	file-name_param1_param2.css
+
