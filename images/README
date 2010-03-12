@@ -1,0 +1,9 @@
+Folder Structure:
+	/ui/images/layout/
+	/ui/images/symbols/
+	/ui/images/typography/
+	/ui/images/modules/
+	/ui/images/pages/
+
+Naming Conventions:
+	file-name_param1_param2.png|jpg|gif
