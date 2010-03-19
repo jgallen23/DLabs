@@ -18,9 +18,14 @@
 
 		<style type="text/css">			
 		
-			.Button { width: 200px; margin: 0 0 20px; display: block; height: 26px; background: url(ui/images/buttons.png) no-repeat left -194px; padding-left: 8px; cursor: pointer; }
+			.Button { width: 125px; margin: 20px; display: block; height: 26px; background: url(ui/images/buttons.png) no-repeat left -194px; padding-left: 8px; cursor: pointer; }
 				.Button .text { display: block; background: url(ui/images/buttons.png) no-repeat right -168px; padding-right: 8px; font: 16px/26px Arial; text-align: center; color: #fff; }
 		
+			.Tabs li:last-child { opacity: 0.2; }
+				.Tabs li:last-child a { cursor: default; }
+				
+			.docs p { width: 50%; }	
+				
 		</style>
 
 	</head>
@@ -48,7 +53,7 @@
 				</div>
 				<div class="docs">
 
-					<p>This button uses a 2 element structure.
+					<p>This button uses a 2 element structure.  A containing &lt;a&gt; that sets the class of the button (eg. class="Button1a").  There is a &lt;span&gt; with a class of "text" always on it so that we can only change the containing element in order to get different button styles, ie color.
 
 				</div>
 				<div class="html">
