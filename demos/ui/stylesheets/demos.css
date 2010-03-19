@@ -25,3 +25,5 @@ h2 { font: 24px/120% 'Trebuchet MS'; margin: 0 0 20px; }
 .TableOfContents { font-size: 16px; margin-top: 10px; }
 	.TableOfContents li { line-height: 20px; }
 
+
+.syntaxhighlighter .line .content { line-height: 20px !important; }
