@@ -1,1 +1,12 @@
-.Wrapper { width: 990px; margin: 0 auto; }
+.Wrapper { width: 990px; margin: 0 auto; border: 1px solid #ccc; padding: 10px; }
+
+a { color: #336699; text-decoration: none }
+	a:hover { text-decoration: underline; }
+
+.Heading1 { font-size: 24px; }
+
+.BulletList { list-style: disc; margin-left: 20px; }
+
+.TableOfContents { font-size: 16px; margin-top: 10px; }
+	.TableOfContents li { line-height: 20px; }
+
