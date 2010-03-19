@@ -14,13 +14,76 @@
 			SyntaxHighlighter.all();
 		</script>
 
+		<style type="text/css">
+		
+			.Wrapper { padding: 20px; }
+			
+			h1 { font: 36px/120% 'Trebuchet MS'; border-bottom: 1px solid #c2c2c2; margin: 0 0 20px; }
+			h2 { font: 24px/120% 'Trebuchet MS'; margin: 0 0 20px; }
+			
+			.Tabs { height: 20px; }
+				.Tabs li { display: inline; background-color: #666; -moz-border-radius: 5px 5px 0 0; -webkit-border-radius: 5px 5px 0 0; border: 1px solid #000; padding: 5px 10px; }
+					.Tabs li a { color: #fff; text-shadow: 1px 1px 1px #000; text-decoration: none; }
+				.Tabs li.selected { background-color: #000; }
+					.Tabs li.selected a { color: #fff; }
+		
+			.Content { border: 1px solid #000; padding: 10px; }
+				.Content div { display: none; }
+				.Content div:first-child { display: block; }
+		
+		
+		
+			.Button { width: 200px; margin: 0 0 20px; display: block; height: 26px; background: url(ui/images/buttons.png) no-repeat left -194px; padding-left: 8px; cursor: pointer; }
+				.Button .text { display: block; background: url(ui/images/buttons.png) no-repeat right -168px; padding-right: 8px; font: 16px/26px Arial; text-align: center; color: #fff; }
+		
+		</style>
+
 	</head>
 	<body>
 		<div class="Wrapper">
-			<pre class="brush: css;">
-				#Header { background: green }
-				.Wrapper { width: 990px; }
-			</pre>
+			
+			<h1>Buttons</h1>
+			
+			<h2>2 element, sliding-doors, background-image</h2>
+
+
+			<ul class="Tabs">
+				<li class="selected"><a href="">Demo</a></li>
+				<li><a href="">Documentation</a></li>
+				<li><a href=""><abbr title="Hypertext Markup Language">HTML</abbr></a></li>
+				<li><a href=""><abbr title="Cascading Stylesheet">CSS</abbr></a></li>
+				<li><a href="">Javascript</a></li>
+			</ul>
+			
+			<div class="Content">
+				<div class="demo">
+				
+					<a class="Button"><span class="text">button text</span></a>
+				
+				</div>
+				<div class="docs">
+
+					<p>This button uses a 2 element structure.
+
+				</div>
+				<div class="html">
+			
+					<pre class="brush: xml;">
+						<a class="Button"><span class="text">button text</span></a>
+			
+					</pre>
+			
+				</div>
+				<div class="css">
+				
+					<pre class="brush: css;">
+						.Button { display: block; height: 26px; background: url(ui/images/buttons/buttons.png) no-repeat left -194px; padding-left: 8px; cursor: pointer; }
+							.Button .text { display: block; background: url(ui/images/buttons/buttons.png) no-repeat right -168px; padding-right: 8px; font: 16px/26px Arial; text-align: center; color: #fff; }
+					</pre>
+				
+				</div>
+			</div>
+			
 		</div>
 
 	</body>
