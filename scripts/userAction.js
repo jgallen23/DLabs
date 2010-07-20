@@ -11,7 +11,11 @@
 		UserAction.execute();
 			
 	Examples:
-		UserAction.add("http://example.com/ui/scripts/plugins/facebookLike,js");
+		UserAction.add("http://example.com/ui/scripts/plugins/facebookLike.js");
+		UserAction.add("http://example.com/ui/scripts/plugins/facebookLike.js", function(){
+			// Script has completed loading
+			alert('Script loaded!');
+		});
 		UserAction.add(function(){
 			alert("Hello world");
 		});
@@ -20,15 +24,28 @@
 
 var UserAction = {
 	scripts: [],
-	add: function(script) {
+	scriptCallbacks: [],
+	add: function(script, callback) {
 		this.scripts.push(script);
+		if (typeof(callback) == 'function') {
+			this.scriptCallbacks[script] = callback;
+		}
 	},
 	execute: function() {
 		var $this = this;
 		$(function() {
-			$('body').one("mousemove", function() {
+			$('body').one("mousemove touchstart", function() {
 				for(var i=0;i<$this.scripts.length;i++) {
-					if(typeof $this.scripts[i] == "string") $.getScript($this.scripts[i]);
+					if (typeof $this.scripts[i] == "string") {					
+						if (typeof($this.scriptCallbacks[ $this.scripts[i] ]) != 'function') {
+							$.getScript($this.scripts[i]);
+						} else {
+							var callback = $this.scriptCallbacks[ $this.scripts[i] ];
+							$.getScript($this.scripts[i], function() {
+								callback.call();
+							});
+						}
+					}
 					else if(typeof $this.scripts[i] == "function") $this.scripts[i]();
 				}
 			});
