@@ -25,6 +25,7 @@
 var UserAction = {
 	scripts: [],
 	scriptCallbacks: [],
+	init: false,
 	add: function(script, callback) {
 		this.scripts.push(script);
 		if (typeof(callback) == 'function') {
@@ -34,19 +35,23 @@ var UserAction = {
 	execute: function() {
 		var $this = this;
 		$(function() {
-			$('body').one("mousemove touchstart", function() {
-				for(var i=0;i<$this.scripts.length;i++) {
-					if (typeof $this.scripts[i] == "string") {					
-						if (typeof($this.scriptCallbacks[ $this.scripts[i] ]) != 'function') {
-							$.getScript($this.scripts[i]);
-						} else {
-							var callback = $this.scriptCallbacks[ $this.scripts[i] ];
-							$.getScript($this.scripts[i], function() {
-								callback.call();
-							});
+			$('body').one("mousemove touchstart keypress", function() {
+				if (!$this.init) {
+					for(var i=0;i<$this.scripts.length;i++) {
+						if (typeof $this.scripts[i] == "string") {					
+							if (typeof($this.scriptCallbacks[ $this.scripts[i] ]) != 'function') {
+								$.getScript($this.scripts[i]);
+							} else {
+								var callback = $this.scriptCallbacks[ $this.scripts[i] ];
+								$.getScript($this.scripts[i], function() {
+									callback.call();
+								});
+							}
 						}
+						else if(typeof $this.scripts[i] == "function") $this.scripts[i]();
 					}
-					else if(typeof $this.scripts[i] == "function") $this.scripts[i]();
+					
+					$this.init = true;
 				}
 			});
 		});
