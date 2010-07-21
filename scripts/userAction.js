@@ -37,6 +37,8 @@ var UserAction = {
 		$(function() {
 			$('body').one("mousemove touchstart keypress", function() {
 				if (!$this.init) {
+					$this.init = true;
+					
 					for(var i=0;i<$this.scripts.length;i++) {
 						if (typeof $this.scripts[i] == "string") {					
 							if (typeof($this.scriptCallbacks[ $this.scripts[i] ]) != 'function') {
@@ -50,8 +52,6 @@ var UserAction = {
 						}
 						else if(typeof $this.scripts[i] == "function") $this.scripts[i]();
 					}
-					
-					$this.init = true;
 				}
 			});
 		});
