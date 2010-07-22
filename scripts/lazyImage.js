@@ -4,8 +4,14 @@
             errorImg: false,
 			callback: false
         };
-        if(options) {
+        if(typeof(options) != 'function') {
             $.extend(settings, options);
+        } else {
+        	/*
+        	 * If you're relying on the default options, just pass in a function 
+        	 * as the parameter, rather than passing an entire object.
+        	 */ 
+        	settings.callback = options;
         }
 		return this.each(function() {
 			var self = this;
