@@ -1,34 +1,49 @@
 (function($) {
-
+	var userAgent = navigator.userAgent.toLowerCase();
+	var isMobileSafari = userAgent.search('mobile') > -1 && userAgent.search('safari') > -1;
+	
     $.fn.onVisible = function(options) {
         var settings = {
             threshold    : 0,
-            failurelimit : 0,
             container    : window,
-			callback	 : false
+            callback	 : false
         };
 
-        if(options) {
+        if(typeof(options) != 'function') {
             $.extend(settings, options);
+        } else {
+            /*
+             * If you're relying on the default options, just pass in a function 
+             * as the parameter, rather than passing an entire object.
+             */ 
+            settings.callback = options;
         }
-
+        
         /* Fire one scroll event per scroll. Not one scroll event per image. */
         var elements = this;
-
+        
 		var checkScroll = function(event) {
-
-			var counter = 0;
+	        if (settings.container === window) {
+	        	var windowHeight = $(window).height();
+	            var scrollTop = $(window).scrollTop();
+	        } else {
+	            var scrollTop = $(settings.container).scrollTop();
+	            var windowHeight = $(settings.container).height();
+	        }
+	        
+			var foldHeight = windowHeight + settings.threshold;
+			var viewableArea = (scrollTop + foldHeight);       
+	        
 			elements.each(function() {
-				if ($.abovethetop(this, settings) ||
-					$.leftofbegin(this, settings)) {
-						/* Nothing. */
-				} else if (!$.belowthefold(this, settings) &&
-					!$.rightoffold(this, settings)) {
-						$(this).trigger("visible");
+				if (settings.container === window) {
+					// Mobile Safari calculates an element's top offset based on the viewport
+					var elemOffsetTop = !isMobileSafari ? $(this).offset().top : ((scrollTop - $(this).offset().top) * -1);
 				} else {
-					if (counter++ > settings.failurelimit) {
-						return false;
-					}
+					var elemOffsetTop = $(this).offset().top;
+				}
+									
+				if (elemOffsetTop <= viewableArea) {
+					$(this).trigger("visible");
 				}
 			});
 		};
@@ -37,10 +52,10 @@
 			if (settings.callback) {
 				var t = $(this);
 				t.one("visible", function() {
-					settings.callback.call(t)
+					settings.callback.call(t);
 				});
 			}
-		});;
+		});
 
 		$(settings.container).bind("scroll", checkScroll);
 
@@ -48,56 +63,5 @@
 		$(settings.container).trigger("scroll");
 
 		return this;
-
     };
-
-    /* Convenience methods in jQuery namespace.           */
-    /* Use as  $.belowthefold(element, {threshold : 100, container : window}) */
-
-    $.belowthefold = function(element, settings) {
-        if (settings.container === undefined || settings.container === window) {
-            var fold = $(window).height() + $(window).scrollTop();
-        } else {
-            var fold = $(settings.container).offset().top + $(settings.container).height();
-        }
-        return fold <= $(element).offset().top - settings.threshold;
-    };
-
-    $.rightoffold = function(element, settings) {
-        if (settings.container === undefined || settings.container === window) {
-            var fold = $(window).width() + $(window).scrollLeft();
-        } else {
-            var fold = $(settings.container).offset().left + $(settings.container).width();
-        }
-        return fold <= $(element).offset().left - settings.threshold;
-    };
-
-    $.abovethetop = function(element, settings) {
-        if (settings.container === undefined || settings.container === window) {
-            var fold = $(window).scrollTop();
-        } else {
-            var fold = $(settings.container).offset().top;
-        }
-        return fold >= $(element).offset().top + settings.threshold  + $(element).height();
-    };
-
-    $.leftofbegin = function(element, settings) {
-        if (settings.container === undefined || settings.container === window) {
-            var fold = $(window).scrollLeft();
-        } else {
-            var fold = $(settings.container).offset().left;
-        }
-        return fold >= $(element).offset().left + settings.threshold + $(element).width();
-    };
-    /* Custom selectors for your convenience.   */
-    /* Use as $("img:below-the-fold").something() */
-
-    $.extend($.expr[':'], {
-        "below-the-fold" : "$.belowthefold(a, {threshold : 0, container: window})",
-        "above-the-fold" : "!$.belowthefold(a, {threshold : 0, container: window})",
-        "right-of-fold"  : "$.rightoffold(a, {threshold : 0, container: window})",
-        "left-of-fold"   : "!$.rightoffold(a, {threshold : 0, container: window})"
-    });
-
 })(jQuery);
-
