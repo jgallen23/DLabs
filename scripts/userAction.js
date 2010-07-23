@@ -35,7 +35,7 @@ var UserAction = {
 	execute: function() {
 		var $this = this;
 		$(function() {
-			$('body').one("mousemove touchstart keypress", function() {
+			$(window).one("mousemove touchstart keypress scroll", function() {
 				if (!$this.init) {
 					$this.init = true;
 					
