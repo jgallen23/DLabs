@@ -38,12 +38,11 @@
 		var eventId = ('fsp__'+Math.random()).replace(/\./,'');
 		
 		elem = $(elem); // Convert elem into a jQuery object
+		var elemOrigPos = elem.css('position'); // Element original position (static, relative, absolute, etc)
+		var elemOrigTop = elem.css('top'); // Element original relative top offset
+		var elemOrigOffset = parseInt(elem.offset().top); // Element original document top offset
 
-		elem.bind("start", function() {
-			var elemOrigPos = elem.css('position'); // Element original position (static, relative, absolute, etc)
-			var elemOrigTop = elem.css('top'); // Element original relative top offset
-			var elemOrigOffset = parseInt(elem.offset().top); // Element original document top offset
-					
+		elem.bind("start", function() {				
 			function position() {
 				// If the viewer has scrolled beyond the top offset of the element container, set the element to fixed position
 				if (elemOrigOffset < $(window).scrollTop()) {
