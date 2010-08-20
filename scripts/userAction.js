@@ -35,7 +35,7 @@ var UserAction = {
 	execute: function() {
 		var $this = this;
 		$(function() {
-			$(window).one("mousemove touchstart keypress scroll", function() {
+			function _exec() {
 				if (!$this.init) {
 					$this.init = true;
 					
@@ -53,7 +53,13 @@ var UserAction = {
 						else if(typeof $this.scripts[i] == "function") $this.scripts[i]();
 					}
 				}
+			}
+			$(window).one("mousemove touchstart keypress scroll", function() {
+				_exec();
 			});
+			$('body').one("mousemove touchstart keypress scroll", function() {
+				_exec();
+			});			
 		});
 	}
 };
